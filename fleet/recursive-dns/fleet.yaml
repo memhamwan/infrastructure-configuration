@@ -1,0 +1,6 @@
+helm:
+  repo: https://coredns.github.io/helm
+  chart: coredns
+  version: 1.15.0
+kustomize:
+  dir: overlays/services

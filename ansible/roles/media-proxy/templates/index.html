@@ -1,0 +1,61 @@
+<html>
+    <head>
+        <meta http-equiv="refresh" content="60">
+        <style>
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0 4px;
+}
+
+/* Create four equal columns that sits next to each other */
+.column {
+  flex: 25%;
+  max-width: 25%;
+  padding: 0 4px;
+}
+
+.column img {
+  margin-top: 8px;
+  vertical-align: middle;
+  max-width: 100%;
+  height: auto;
+}
+
+/* Responsive layout - makes a two column-layout instead of four columns */
+@media screen and (max-width: 800px) {
+  .column {
+    flex: 50%;
+    max-width: 50%;
+  }
+}
+
+/* Responsive layout - makes the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 600px) {
+  .column {
+    flex: 100%;
+    max-width: 100%;
+  }
+}
+        </style>
+    </head>
+    <body>
+        <div class="row"> 
+            <div class="column">
+                <a href="sco-1.jpg"><img src="sco-1.jpg" alt="sco-1" /></a>
+                <a href="hil-1.jpg"><img src="hil-1.jpg" alt="hil-1" /></a>
+            </div>
+            <div class="column">
+                <a href="mno-1.jpg"><img src="mno-1.jpg" alt="mno-1" /></a>
+                <a href="azo-1.jpg"><img src="azo-1.jpg" alt="azo-1" /></a>
+            </div>
+            <div class="column">
+                <a href="crw-1.jpg"><img src="crw-1.jpg" alt="crw-1" /></a>
+                <a href="crw-2.jpg"><img src="crw-2.jpg" alt="crw-2" /></a>
+            </div>
+            <div class="column">
+                <a href="crw-3.jpg"><img src="crw-3.jpg" alt="crw-3" /></a>
+            </div>
+        </div>
+    </body>
+</html>

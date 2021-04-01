@@ -1,0 +1,39 @@
+---
+- name: Harden
+  community.network.routeros_command:
+    commands: 
+      - /ip service set telnet disabled=yes
+      - /ip service set ftp disabled=yes
+      - /ip service set www disabled=yes
+      - /ip service set api disabled=yes
+      - /ip service set winbox disabled=yes
+      - /ip service set api-ssl disabled=yes
+      - /tool bandwidth-server set authenticate=no enabled=no
+      - /tool mac-server set allowed-interface-list=none
+      - /tool mac-server mac-winbox set allowed-interface-list=none
+      - /tool mac-server ping set enabled=no
+      - /ip neighbor discovery-settings set discover-interface-list=none
+      - /ip ssh set strong-crypto=yes
+- name: Setup hamwan user, remove default user
+  community.network.routeros_command:
+    commands:
+      - "/user add name=hamwan group=full password={{HAMWAN_SSH_SECRET}}"
+      - "/user remove [find name=admin]"
+- name: Setup romon
+  community.network.routeros_command:
+    commands:
+      - "/tool romon set enabled=yes secrets={{ROMON_SECRET}}"
+- name: Setup system identity
+  community.network.routeros_command:
+    commands:
+      - "/system identity set name={{inventory_hostname}}"
+- name: Enable SNMP
+  community.network.routeros_command:
+    commands:
+      - "/snmp community set addresses=44.0.0.0/8 [find]"
+      - "/snmp set enabled=yes"
+- name: Set timezone and NTP client
+  community.network.routeros_command:
+    commands:
+      - "/system clock set time-zone-autodetect=no time-zone-name=America/Chicago"
+      - "/system ntp client set enabled=yes server-dns-names=ntp.memhamwan.net"

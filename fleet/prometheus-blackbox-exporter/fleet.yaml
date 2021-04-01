@@ -1,0 +1,29 @@
+helm:
+  repo: https://prometheus-community.github.io/helm-charts
+  chart: prometheus-blackbox-exporter
+  values:
+    image:
+      repository: prom/blackbox-exporter
+      tag: v0.18.0
+      pullPolicy: IfNotPresent
+    ingress: 
+      enabled: "true"
+      hosts:
+        - blackbox-exporter.k8s.leb.memhamwan.net
+    config:
+      modules:
+        http_2xx:
+          prober: http
+          timeout: 5s
+          http:
+            valid_http_versions: ["HTTP/1.1", "HTTP/2.0"]
+            no_follow_redirects: false
+            preferred_ip_protocol: "ip4"
+        tcp_connect:
+          prober: tcp
+          timeout: 5s
+        icmp:
+          prober: icmp
+          timeout: 5s
+          icmp:
+            preferred_ip_protocol: "ip4"

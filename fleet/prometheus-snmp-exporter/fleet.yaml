@@ -1,0 +1,12 @@
+helm:
+  repo: https://prometheus-community.github.io/helm-charts
+  chart: prometheus-snmp-exporter
+  values:
+    image:
+      repository: prom/snmp-exporter
+      tag: v0.20.0
+      pullPolicy: IfNotPresent
+    ingress: 
+      enabled: "true"
+      hosts:
+        - snmp-exporter.k8s.leb.memhamwan.net

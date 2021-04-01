@@ -1,0 +1,65 @@
+---
+- name: Create a user and group for node_exporter
+  ansible.builtin.user:
+    name: node_exporter
+    shell: /bin/bash
+  become: yes
+- name: Create the node_exporter lib dir
+  ansible.builtin.file:
+    path: /var/lib/node_exporter
+    state: directory
+    owner: node_exporter
+    group: node_exporter
+  become: yes
+- name: Grab the amd64 version
+  ansible.builtin.unarchive:
+    src: https://github.com/prometheus/node_exporter/releases/download/v1.1.2/node_exporter-1.1.2.linux-amd64.tar.gz
+    dest: /tmp
+    remote_src: yes
+    extra_opts: [--strip-components=1]
+  when: ansible_architecture == "x86_64"
+  become: yes
+- name: Grab the armv7 version
+  ansible.builtin.unarchive:
+    src: https://github.com/prometheus/node_exporter/releases/download/v1.1.2/node_exporter-1.1.2.linux-armv7.tar.gz
+    dest: /tmp
+    remote_src: yes
+    extra_opts: [--strip-components=1]
+  when: ansible_architecture == "armv7l"
+  become: yes
+- name: Move the node_exporter file
+  ansible.builtin.copy:
+    src: /tmp/node_exporter
+    dest: /usr/local/bin
+    remote_src: yes
+    mode: '+x'
+  become: yes
+- name: Copy the service file in
+  ansible.builtin.template:
+    src: node_exporter.service.j2
+    dest: /etc/systemd/system/node_exporter.service
+    owner: root
+    group: root
+  become: yes
+- name: Discover, enable, and restart service
+  ansible.builtin.systemd:
+    state: restarted
+    enabled: yes
+    daemon_reload: yes
+    name: node_exporter.service
+  become: yes
+- name: Download rpiexporter installer
+  get_url: 
+    url: https://raw.githubusercontent.com/fahlke/raspberrypi_exporter/master/installer.sh
+    dest: /tmp/rpiexporter-installer.sh
+    mode: '+x'
+  when: ansible_architecture == "armv7l"
+  become: yes
+- name: Execute the rpiexporter-installer.sh
+  shell: /tmp/rpiexporter-installer.sh
+  when: ansible_architecture == "armv7l"
+  become: yes
+- name: Remove the rpiexporter-installer.sh
+  file: path=/tmp/rpiexporter-installer.sh state=absent
+  when: ansible_architecture == "armv7l"
+  become: yes

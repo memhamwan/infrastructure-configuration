@@ -1,0 +1,3 @@
+resources:
+- tcp53.yaml
+- udp53.yaml

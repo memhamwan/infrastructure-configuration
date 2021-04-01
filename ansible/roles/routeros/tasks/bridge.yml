@@ -1,0 +1,24 @@
+---
+- name: Set local interface name
+  set_fact: LOCAL_INTERFACE="bridge"
+- name: Setup OSPF
+  community.network.routeros_command:
+    commands:
+      - /routing filter remove [find]
+      - /routing filter add action=accept chain=AMPR-default prefix=44.0.0.0/8 prefix-length=8-32
+      - /routing filter add action=accept chain=AMPR-default prefix=0.0.0.0/0
+      - /routing filter add action=reject chain=AMPR-default
+      - "/routing ospf instance set [ find default=yes ] in-filter=AMPR-default out-filter=AMPR-default redistribute-bgp=as-type-1 redistribute-connected=as-type-1 redistribute-other-ospf=as-type-1 redistribute-static=as-type-1 router-id={{dns_ip}}"
+      - "routing ospf interface remove [find]"
+      - "/routing ospf interface add authentication=md5 authentication-key={{OSPF_KEY}} interface={{LOCAL_INTERFACE}} network-type=broadcast"
+      - "/routing ospf network remove [find]"
+      - "/routing ospf network add area=backbone network={{SITE_NET}}"
+- name: Setup VRRP
+  community.network.routeros_command:
+    commands:
+      - "/interface vrrp remove [find]"
+      - "/interface vrrp add authentication=ah interface={{LOCAL_INTERFACE}} name=vrrp1 password={{VRRP_PASSWORD}} version=2"
+- name: Add wired IP
+  community.network.routeros_command:
+    commands:
+      - "/ip address add interface={{LOCAL_INTERFACE}} address={{dns_ip}}/{{local_ip_netmask}}"

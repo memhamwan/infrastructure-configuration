@@ -1,0 +1,6 @@
+---
+- hosts: routeros_ptp
+  roles:
+    - role: routeros-ptp
+  gather_facts: no
+  serial: 1

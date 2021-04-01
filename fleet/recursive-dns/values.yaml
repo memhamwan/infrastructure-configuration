@@ -1,0 +1,44 @@
+prometheus:
+  service:
+    enabled: true
+  monitor:
+    enabled: true
+isClusterService: false
+servers:
+  - zones:
+      - zone: memhamwan.net
+    port: 53
+    plugins:
+      - name: errors
+      - name: health
+        configBlock: |-
+          lameduck 5s
+      - name: ready
+      - name: prometheus
+        parameters: 0.0.0.0:9153
+      - name: forward
+        parameters: memhamwan.net 44.34.128.177
+      - name: cache
+      - name: loop
+      - name: reload
+      - name: loadbalance
+  - zones:
+      - zone: .
+    port: 53
+    plugins:
+      - name: errors
+      - name: health
+        configBlock: |-
+          lameduck 5s
+      - name: ready
+      - name: prometheus
+        parameters: 0.0.0.0:9153
+      - name: forward
+        parameters: . tls://9.9.9.9 tls://149.112.112.112
+        configBlock: |-
+          tls_servername dns.quad9.net
+          health_check 5s
+      - name: cache
+      - name: loop
+      - name: reload
+      - name: loadbalance

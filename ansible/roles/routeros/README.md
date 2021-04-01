@@ -1,0 +1,1 @@
+Bridge.yml currently works, but it is not connected to anything because it is not actually general-purpose enough to apply in all cases (see PtP links). Refactoring is needed to make this universally safe.

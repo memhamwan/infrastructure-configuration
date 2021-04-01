@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    metallb.universe.tf/allow-shared-ip: coredns
+  name: fleet-apps-fleet-recursive-dns-coredns-metallb-tcp53
+  namespace: default
+spec:
+  loadBalancerIP: 44.34.128.190
+  ports:
+  - name: tcp-53
+    port: 53
+    protocol: TCP
+    targetPort: 53
+  selector:
+    app.kubernetes.io/instance: fleet-apps-fleet-recursive-dns
+    app.kubernetes.io/name: coredns
+    k8s-app: coredns
+  type: LoadBalancer

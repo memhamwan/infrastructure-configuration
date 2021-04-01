@@ -1,0 +1,69 @@
+---
+- template:
+    src: cam-downloader.sh
+    dest: /opt/cam-downloader.sh
+    owner: root
+    group: root
+    mode: 0755
+  become: yes
+- apache2_module:
+    state: present
+    name: expires
+  become: yes
+- apache2_module:
+    state: present
+    name: headers
+  become: yes
+- apache2_module:
+    state: present
+    name: cache
+  become: yes
+- lineinfile:
+    dest: /etc/apache2/sites-enabled/000-default.conf
+    regexp: '^ExpiresActive'
+    line: ExpiresActive on
+    insertbefore: '^</VirtualHost>'
+  become: yes
+- lineinfile:
+    dest: /etc/apache2/sites-enabled/000-default.conf
+    regexp: '^ExpiresDefault'
+    line: ExpiresDefault A60
+    insertbefore: '^</VirtualHost>'
+  become: yes
+- lineinfile:
+    dest: /etc/apache2/sites-enabled/000-default.conf
+    regexp: '^CacheHeader'
+    line: CacheHeader on
+    insertbefore: '^</VirtualHost>'
+  become: yes
+- lineinfile:
+    dest: /etc/apache2/sites-enabled/000-default.conf
+    regexp: '^Header merge Cache-Contro'
+    line: Header merge Cache-Control public
+    insertbefore: '^</VirtualHost>'
+  become: yes
+- lineinfile:
+    dest: /etc/apache2/sites-enabled/000-default.conf
+    regexp: '^FileETag'
+    line: FileETag All
+    insertbefore: '^</VirtualHost>'
+  become: yes
+- template:
+    src: index.html
+    dest: /var/www/html/index.html
+    owner: root
+    group: root
+    mode: 0755
+  become: yes
+- name: Install the package "apache2"
+  apt:
+    name: apache2
+  become: yes
+- cron:
+    name: "Download Camera Pictures"
+    job: "/opt/cam-downloader.sh &> /var/log/cam-downloader.log"
+  become: yes
+- ufw:
+    rule: allow
+    name: Apache Full
+  become: yes

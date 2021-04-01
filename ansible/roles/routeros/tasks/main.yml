@@ -1,0 +1,30 @@
+---
+- name: Include update tasks
+  include_tasks: 
+    file: "update.yaml"
+    apply:
+      tags:
+        - update
+  tags:
+    - update
+- name: Include harden tasks
+  include_tasks: 
+    file: "harden.yaml"
+    apply:
+      tags:
+        - harden
+  tags:
+    - harden
+- name: Setup manual users
+  community.network.routeros_command:
+    commands: 
+      - "/file set {{item.name}} contents='{{item.key}}'"
+      - "/user add name={{item.name}} group=full"
+      - "/user ssh-keys import public-key-file={{item.name}}.keys user={{item.name}}"
+  loop: "{{ users }}"
+  tags:
+    - add-users
+# - name: Lookup IP
+#   set_fact: dns_ip="{{ lookup('dig', inventory_hostname) }}"
+# - name: Local IP netmask
+#   set_fact: local_ip_netmask="{{ SITE_NET.split('/')[-1] }}"

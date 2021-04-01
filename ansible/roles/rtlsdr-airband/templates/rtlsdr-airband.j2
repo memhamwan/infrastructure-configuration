@@ -1,0 +1,92 @@
+devices:
+({
+  type = "rtlsdr";
+  index = 0;
+  gain = 25;
+  centerfreq = 146.0;
+  correction = -1;
+  channels:
+  (
+    {
+      freq = 146.88;
+      modulation = "nfm";
+      bandwidth = 10000;
+      outputs: (
+        {
+          type = "file";
+          directory = "/media/recordings";
+          filename_template = "88";
+        },
+        {
+          type = "icecast";
+          server = "audio9.broadcastify.com";
+          port = 80;
+          mountpoint = "8p74v0gsz5by";
+          username = "source";
+          password = "{{rtl_88_stream_pw}}";
+        }
+      );
+    },
+    {
+      freq = 146.85;
+      modulation = "nfm";
+      bandwidth = 10000;
+      outputs: (
+        {
+          type = "file";
+          directory = "/media/recordings";
+          filename_template = "85";
+        },
+        {
+          type = "icecast";
+          server = "audio9.broadcastify.com";
+          port = 80;
+          mountpoint = "mpv39bhtkn4z";
+          username = "source";
+          password = "{{rtl_85_stream_pw}}";
+        }
+      );
+    },
+    {
+      freq = 145.45;
+      modulation = "nfm";
+      bandwidth = 10000;
+      outputs: (
+        {
+          type = "file";
+          directory = "/media/recordings";
+          filename_template = "45";
+        },
+        {
+          type = "icecast";
+          server = "audio9.broadcastify.com";
+          port = 80;
+          mountpoint = "sbtxy8ngjp32";
+          username = "source";
+          password = "{{rtl_45_stream_pw}}";
+        }
+      );
+    },
+    {
+      freq = 145.21;
+      modulation = "nfm";
+      bandwidth = 10000;
+      outputs: (
+        {
+          type = "file";
+          directory = "/media/recordings";
+          filename_template = "21";
+        },
+        {
+          type = "icecast";
+          server = "audio9.broadcastify.com";
+          port = 80;
+          mountpoint = "tnbxg2w7zf3v";
+          username = "source";
+          password = "{{rtl_21_stream_pw}}";
+        }
+      );
+    }
+  );
+ }
+);
