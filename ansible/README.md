@@ -45,5 +45,9 @@ Note that you might need to do ANSIBLE_PERSISTENT_COMMAND_TIMEOUT=60 depending o
 A more complex example:
 
 ```bash
-ansible-playbook --vault-password-file .vault-password -i memphis.yml upgrade-routeros.yml -u admin -vvvv --skip-tags update --limit ret.leb.memhamwan.net
+ansible-playbook --vault-password-file .vault-password -i memphis.yml upgrade-routeros.yml --tags update --limit omn1.crw.memhamwan.net
 ```
+
+### Scrape configs
+
+ansible-playbook --vault-password-file .vault-password -i memphis.yml dump-routeros.yml --limit crw

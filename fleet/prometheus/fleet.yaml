@@ -202,6 +202,12 @@ helm:
                 - sec3.hil.memhamwan.net
                 - sec3.mno.memhamwan.net
                 - sec3.sco.memhamwan.net
+                - leb.crw.memhamwan.net
+                - r1.crw.memhamwan.net
+                - r2.crw.memhamwan.net
+                - r3.crw.memhamwan.net
+                - omn1.crw.memhamwan.net
+                - omn2.crw.memhamwan.net
             metrics_path: /snmp
             params:
               module: [mikrotik]

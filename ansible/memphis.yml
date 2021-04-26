@@ -6,6 +6,22 @@ memphis:
       - { name: turnrye, key: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDEZXA4eMYwloBRhd7bvYVF8o+xBUHLCldQcSfwunhE+OP8g13a5/DsUL+XkM14MNxLgIZaTKwLQxN8Q0O7WyVy9ZRCS29ybGvjhzMi3YJENd9G/URkQpSA7Jt6l4M+pI5J6Az9Vpw0ASboxpVSaBWOL1u5Kg0+SDGsea1KtoU+gMi91Fy5dNdiuWVpjvtRJAkQ0Kukidzj/HxYZvetelXy6CwDqI2JBYHGWlO8gMfd3x5ObRW4RR7oyWsV3q+f3V2723GLre5W1owqvEZqhfUK1N3RBBEtAUCRM0WoQW0RNoLEqVAsXfy1rkyRgi0FXm+te9xQ3355+tTdwqioCoAj ryan_turner@Ryans-MacBook-Pro.local' }
       - { name: seichold, key: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCtNLtPE1FDaMZ3stcq/lMralo4gMvV3WgAFUq71Zc5rKXSfzYVgSYcPUMEVoEN8OPPa3x5pYW6QSTD7jNVIDtPjROfyv1ATZXnTkdMmyF4BDdHkBPMYjx1By6lsOhRts1QMo6uYsF0xXLciaZIEKQYck0oAKckXYf+slIUQ9MV7GXW6OolCYtdu9x64M8uvqQ+KblbulhGlB64pI1QXizcSr78wo+AhXZN3RiYVn+gawmdnP9AVqIxXEvIVjwDjRZY6HQWdeSMijFY+et1E7yWRRPPJGwPSjZ2bK+lUpT/7tN8MKVevRi9XjlvjtkVBr2B/Ldm97MyUzK4L92p5mqN sam@sam-HP-EliteBook-840-G1' }
   children:
+    crw:
+      hosts:
+        leb.crw.memhamwan.net:
+          ether1_ip: 44.34.129.115
+        r1.crw.memhamwan.net:
+          ether1_ip: 44.34.129.116
+        r2.crw.memhamwan.net:
+          ether1_ip: 44.34.129.117
+        r3.crw.memhamwan.net:
+          ether1_ip: 44.34.129.118
+        omn1.crw.memhamwan.net:
+          ether1_ip: 44.34.129.114
+        omn2.crw.memhamwan.net:
+          ether1_ip: 44.34.129.119
+      vars:
+        vrrp_ip: 44.34.129.113
     azo:
       hosts:
         leb.azo.memhamwan.net:
@@ -19,22 +35,34 @@ memphis:
         vrrp_ip: 44.34.129.65/32
     ret:
       hosts:
-        bobross:
-          ansible_host: 10.0.10.26
-          inventory_hostname: leb.ret.memhamwan.net
+        leb.ret.memhamwan.net:
+          ether1_ip: 44.34.129.161
+          wlan1_ip: 44.34.131.146
+        r1.ret.memhamwan.net:
+          ether1_ip: 44.34.129.162
       vars:
         SITE_NET: 44.34.129.161/28
     leb:
       hosts:
         crw.leb.memhamwan.net: 
+          ether1_ip: 44.34.128.168
+          wlan1_ip: 44.34.131.145
         omn1.leb.memhamwan.net: 
+          ether1_ip: 44.34.128.183
         azo.leb.memhamwan.net:
+          wlan1_ip: 44.34.131.142
         mno.leb.memhamwan.net: 
+          ether1_ip: 44.34.128.182
+          wlan1_ip: 44.34.131.141
         hil.leb.memhamwan.net: 
         sco.leb.memhamwan.net:
         r1.leb.memhamwan.net: 
+          ether1_ip: 44.34.128.161
         r2.leb.memhamwan.net: 
+          ether1_ip: 44.34.128.162
         ret.leb.memhamwan.net:
+          ether1_ip: 44.34.128.176
+          wlan1_ip: 44.34.131.147
       vars:
         SITE_NET: 44.34.128.160/27
         vrrp_ip: 44.34.128.174/32
@@ -153,6 +181,12 @@ memphis:
         sec3.hil.memhamwan.net:
         sec3.sco.memhamwan.net:
         wifi.sco.memhamwan.net:
+        leb.crw.memhamwan.net:
+        r1.crw.memhamwan.net:
+        r2.crw.memhamwan.net:
+        r3.crw.memhamwan.net:
+        omn1.crw.memhamwan.net:
+        omn2.crw.memhamwan.net:
     servers:
       hosts:
         adsb.sco.memhamwan.net:
