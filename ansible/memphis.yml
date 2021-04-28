@@ -1,7 +1,9 @@
 memphis:
   vars:
     ansible_command_timeout: 45
+    ansible_port: 222
     dns_server: 44.34.128.190
+    ntp_server: ntp.memhamwan.net
     users:
       - { name: turnrye, key: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDEZXA4eMYwloBRhd7bvYVF8o+xBUHLCldQcSfwunhE+OP8g13a5/DsUL+XkM14MNxLgIZaTKwLQxN8Q0O7WyVy9ZRCS29ybGvjhzMi3YJENd9G/URkQpSA7Jt6l4M+pI5J6Az9Vpw0ASboxpVSaBWOL1u5Kg0+SDGsea1KtoU+gMi91Fy5dNdiuWVpjvtRJAkQ0Kukidzj/HxYZvetelXy6CwDqI2JBYHGWlO8gMfd3x5ObRW4RR7oyWsV3q+f3V2723GLre5W1owqvEZqhfUK1N3RBBEtAUCRM0WoQW0RNoLEqVAsXfy1rkyRgi0FXm+te9xQ3355+tTdwqioCoAj ryan_turner@Ryans-MacBook-Pro.local' }
       - { name: seichold, key: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCtNLtPE1FDaMZ3stcq/lMralo4gMvV3WgAFUq71Zc5rKXSfzYVgSYcPUMEVoEN8OPPa3x5pYW6QSTD7jNVIDtPjROfyv1ATZXnTkdMmyF4BDdHkBPMYjx1By6lsOhRts1QMo6uYsF0xXLciaZIEKQYck0oAKckXYf+slIUQ9MV7GXW6OolCYtdu9x64M8uvqQ+KblbulhGlB64pI1QXizcSr78wo+AhXZN3RiYVn+gawmdnP9AVqIxXEvIVjwDjRZY6HQWdeSMijFY+et1E7yWRRPPJGwPSjZ2bK+lUpT/7tN8MKVevRi9XjlvjtkVBr2B/Ldm97MyUzK4L92p5mqN sam@sam-HP-EliteBook-840-G1' }
@@ -63,6 +65,11 @@ memphis:
         ret.leb.memhamwan.net:
           ether1_ip: 44.34.128.176
           wlan1_ip: 44.34.131.147
+        k8s-1.leb.memhamwan.net:
+        k8s-2.leb.memhamwan.net:
+        k8s-3.leb.memhamwan.net:
+        dns.leb.memhamwan.net:
+        ntp.leb.memhamwan.net:
       vars:
         SITE_NET: 44.34.128.160/27
         vrrp_ip: 44.34.128.174/32
@@ -187,11 +194,14 @@ memphis:
         r3.crw.memhamwan.net:
         omn1.crw.memhamwan.net:
         omn2.crw.memhamwan.net:
+        leb.ret.memhamwan.net:
     servers:
       hosts:
+        k8s-1.leb.memhamwan.net:
+        k8s-2.leb.memhamwan.net:
+        k8s-3.leb.memhamwan.net:
         adsb.sco.memhamwan.net:
         stream.sco.memhamwan.net:
-        # voip.leb.memhamwan.net: #Having issues with this host -- it's
         dns.leb.memhamwan.net:
         # ntp.leb.memhamwan.net: #This is commented out currently because the startup script is customized to add the ntp collector to the template for node exporter; need to write a script that adds this
     ntp:

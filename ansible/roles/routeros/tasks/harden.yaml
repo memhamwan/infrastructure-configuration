@@ -30,10 +30,21 @@
 - name: Enable SNMP
   community.network.routeros_command:
     commands:
-      - "/snmp community set addresses=44.0.0.0/8 [find]"
+      - "/snmp community set name=public addresses=44.0.0.0/8 read-access=yes write-access=no numbers=0"
       - "/snmp set enabled=yes"
 - name: Set timezone and NTP client
   community.network.routeros_command:
     commands:
       - "/system clock set time-zone-autodetect=no time-zone-name=America/Chicago"
-      - "/system ntp client set enabled=yes server-dns-names=ntp.memhamwan.net"
+      - "/system ntp client set enabled=yes server-dns-names={{ntp_server}}"
+- name: Get the SSH port
+  community.network.routeros_command:
+    commands:
+      - ":put [/ip service get [find name=ssh]]"
+  register: ssh_service
+- name: Move SSH to port 222
+  community.network.routeros_command:
+    commands:
+      - "/ip service set ssh port=222"
+  when: ssh_service.stdout_lines[0][0] is not regex("(^|;)port=222(;|$)")
+  changed_when: True

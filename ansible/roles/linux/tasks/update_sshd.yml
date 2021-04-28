@@ -1,0 +1,10 @@
+---
+- name: Move SSH to port 222
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '^Port '
+    insertafter: '^#Port '
+    line: Port 222
+  become: yes
+  notify:
+    - Restart sshd

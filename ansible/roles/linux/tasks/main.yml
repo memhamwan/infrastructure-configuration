@@ -1,30 +1,11 @@
 ---
-- name: Add the users
-  user:
-    name: "{{ item.name }}"
-    groups: [ sudo ]
-    append: yes
-    shell: /bin/bash
-  loop: "{{ users }}"
-  become: yes
+- name: Include add users
+  include_tasks: 
+    file: "add_users.yml"
+    apply:
+      tags: add_users
   tags:
-    - add-users
-- name: Add their authorized keys
-  authorized_key:
-    user: "{{ item.name }}"
-    key: "{{ item.key }}"
-  loop: "{{ users }}"
-  become: yes
-  tags:
-    - add-users
-- name: Allow 'sudo' group to have passwordless sudo
-  lineinfile:
-    dest: /etc/sudoers
-    state: present
-    regexp: '^%sudo'
-    line: '%sudo ALL=(ALL) NOPASSWD: ALL'
-    validate: 'visudo -cf %s'
-  become: yes
+    - add_users
 - name: Include update tasks
   include_tasks: 
     file: "node_exporter.yml"
@@ -32,3 +13,10 @@
       tags: node_exporter
   tags:
     - node_exporter
+- name: Include update sshd
+  include_tasks: 
+    file: "update_sshd.yml"
+    apply:
+      tags: update_sshd
+  tags:
+    - update_sshd
