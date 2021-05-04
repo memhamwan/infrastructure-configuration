@@ -36,7 +36,7 @@ stringData:
     user: "KM4ECM"
     passcode: "20391"
     prometheus:
-      host: fleet-apps-fleet-prometheus-pushgateway.default.svc:9091
+      host: "fleet-apps-fleet-prometheus-pushgateway.default.svc:9091"
       job: aprs-site-announcer
 ---
 apiVersion: batch/v1beta1
@@ -44,7 +44,7 @@ kind: CronJob
 metadata:
   name: aprs-site-announcer
 spec:
-  schedule: "05 * * * *"
+  schedule: "53 * * * *"
   jobTemplate:
     spec:
       template:
