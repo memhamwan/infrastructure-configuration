@@ -1,0 +1,3 @@
+helm:
+  repo: https://helm.elastic.co
+  chart: elasticsearch
