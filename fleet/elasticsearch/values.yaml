@@ -14,10 +14,5 @@ resources:
     cpu: "1000m"
     memory: "512M"
 
-# Request smaller persistent volumes.
-volumeClaimTemplate:
-  accessModes: [ "ReadWriteOnce" ]
-  storageClassName: "standard"
-  resources:
-    requests:
-      storage: 100M
+persistence:
+  enabled: false
