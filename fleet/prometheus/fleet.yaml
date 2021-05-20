@@ -1,6 +1,7 @@
 helm:
   repo: https://prometheus-community.github.io/helm-charts
   chart: prometheus
+  version: 14.0.0
   values:
     server:
       baseURL: "https://prometheus.k8s.leb.memhamwan.net"
