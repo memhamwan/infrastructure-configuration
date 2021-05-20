@@ -4,6 +4,8 @@ helm:
   version: 14.0.0
   values:
     server:
+      image:
+        tag: v2.27.1
       baseURL: "https://prometheus.k8s.leb.memhamwan.net"
       persistentVolume:
         enabled: false
