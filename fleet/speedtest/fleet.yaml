@@ -1,0 +1,4 @@
+helm:
+  repo: https://k8s-at-home.com/charts
+  chart: librespeed
+  version: 3.2.0
