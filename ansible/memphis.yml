@@ -14,6 +14,13 @@ memphis:
           ether1_ip: 44.34.129.115
         r1.crw.memhamwan.net:
           ether1_ip: 44.34.129.116
+          user_subnets:
+            - name: OBARC
+              network: "44.34.129.176/28"
+              gateway_ip: "44.34.129.176/28"
+              bridge_ports:
+                - "ether7"
+                - "ether8"
         r2.crw.memhamwan.net:
           ether1_ip: 44.34.129.117
         r3.crw.memhamwan.net:

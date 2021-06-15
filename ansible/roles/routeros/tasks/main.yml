@@ -15,6 +15,16 @@
         - harden
   tags:
     - harden
+- name: Include user_subnets tasks
+  include_tasks: 
+    file: "user_subnets.yml"
+    apply:
+      tags:
+        - user_subnets
+  loop: "{{ user_subnets }}"
+  when: "user_subnets is defined"
+  tags:
+    - user_subnets
 - name: Setup manual users
   community.network.routeros_command:
     commands: 
