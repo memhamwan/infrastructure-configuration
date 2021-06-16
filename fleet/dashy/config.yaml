@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: dashy-config-v3 # To make sure deployments happen properly, be sure to bump the version slug at the end; there's a corresponding change needed in dashy.yaml too
+  name: dashy-config-v4 # To make sure deployments happen properly, be sure to bump the version slug at the end; there's a corresponding change needed in dashy.yaml too
 data:
   # file-like keys
   conf.yml: |
@@ -57,5 +57,9 @@ data:
         description: 'K8S Management Portal'
         icon: favicon
         url: https://rancher.k8s.leb.memhamwan.net/
+      - title: Authoritate DNS
+        description: 'Management portal for PowerDNS, which we use for our authoritative DNS'
+        icon: favicon
+        url: https://dns.leb.memhamwan.net/
         
       
