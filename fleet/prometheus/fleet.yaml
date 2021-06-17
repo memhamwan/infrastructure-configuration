@@ -284,6 +284,24 @@ helm:
                 target_label: instance
               - target_label: __address__
                 replacement: blackbox-exporter.k8s.leb.memhamwan.net  # The blackbox exporter's real hostname:port.
+          - job_name: 'ip-cameras'
+            metrics_path: /probe
+            params:
+              module: [tcp_connect]
+            static_configs:
+              - targets:
+                - cam1.azo.memhamwan.net:554
+                - cam1.hil.memhamwan.net:1935
+                - cam1.crw.memhamwan.net:554
+                - cam2.crw.memhamwan.net:554
+                # TODO: Add cam1.sco.memhamwan.net once we identify what port it is running on
+            relabel_configs:
+              - source_labels: [__address__]
+                target_label: __param_target
+              - source_labels: [__param_target]
+                target_label: instance
+              - target_label: __address__
+                replacement: blackbox-exporter.k8s.leb.memhamwan.net  # The blackbox exporter's real hostname:port.
           - job_name: 'node_exporter'
             static_configs:
             - targets: 
