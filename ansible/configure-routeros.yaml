@@ -1,5 +1,27 @@
 ---
-- hosts: routeros
+# Upgrade all devices, but run in a specific order so that it works site-by-site; the intent here is to minimize the impact of this maintenance
+# First of all, start with the omnis etc that can all be done with a high serial number; these are not SPOFs for the network
+- hosts: routeros:&ret
+  roles:
+    - role: routeros
+  gather_facts: false
+  serial: 1
+- hosts: routeros:&sco
+  roles:
+    - role: routeros
+  gather_facts: false
+  serial: 1
+- hosts: routeros:&azo
+  roles:
+    - role: routeros
+  gather_facts: false
+  serial: 1
+- hosts: routeros:&hil
+  roles:
+    - role: routeros
+  gather_facts: false
+  serial: 1
+- hosts: routeros:&leb
   roles:
     - role: routeros
   gather_facts: false

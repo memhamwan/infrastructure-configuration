@@ -1,9 +1,10 @@
 memphis:
   vars:
-    ansible_command_timeout: 45
-    ansible_port: 222
+    ssh_port: 222
     dns_server: 44.34.128.190
     ntp_server: ntp.memhamwan.net
+    ansible_command_timeout: 45
+    ansible_port: "{{ssh_port}}"
     users:
       - name: turnrye
         key: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDEZXA4eMYwloBRhd7bvYVF8o+xBUHLCldQcSfwunhE+OP8g13a5/DsUL+XkM14MNxLgIZaTKwLQxN8Q0O7WyVy9ZRCS29ybGvjhzMi3YJE\
@@ -29,10 +30,10 @@ memphis:
                 - "ether8"
         r2.crw.memhamwan.net:
           ether1_ip: 44.34.129.117
-        r3.crw.memhamwan.net:
-          ether1_ip: 44.34.129.118
-        omn1.crw.memhamwan.net:
-          ether1_ip: 44.34.129.114
+        # r3.crw.memhamwan.net:
+        #   ether1_ip: 44.34.129.118
+        # omn1.crw.memhamwan.net:
+        #   ether1_ip: 44.34.129.114
         omn2.crw.memhamwan.net:
           ether1_ip: 44.34.129.119
       vars:
@@ -203,8 +204,8 @@ memphis:
         leb.crw.memhamwan.net:
         r1.crw.memhamwan.net:
         r2.crw.memhamwan.net:
-        r3.crw.memhamwan.net:
-        omn1.crw.memhamwan.net:
+        # r3.crw.memhamwan.net:
+        # omn1.crw.memhamwan.net:
         omn2.crw.memhamwan.net:
         leb.ret.memhamwan.net:
     servers:

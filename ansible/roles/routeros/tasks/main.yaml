@@ -25,12 +25,24 @@
   when: "user_subnets is defined"
   tags:
     - user_subnets
-- name: Setup manual users
+- name: Get list of users on live
   community.network.routeros_command:
     commands:
-      - "/file set {{ item.name }} contents='{{ item.key }}'"
-      - "/user add name={{ item.name }} group=full"
-      - "/user ssh-keys import public-key-file={{ item.name }}.keys user={{ item.name }}"
+      - ":foreach i in=[ /user print as-value ] do={:put ($i->\"name\")}"
+  register: existing_users_raw
+  tags:
+    - add-users
+- name: Parse ROS output and set existing_users variable
+  set_fact:
+    existing_users: "{{ existing_users_raw.stdout[0].split('\n\n')[1].split('\n') }}"
+  tags:
+    - add-users
+- name: Setup netops users
+  include_tasks:
+    file: "add_netops.yml"
+    apply:
+      tags:
+        - add-users
   loop: "{{ users }}"
   tags:
     - add-users
