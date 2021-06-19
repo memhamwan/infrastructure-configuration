@@ -24,7 +24,7 @@ memphis:
           user_subnets:
             - name: OBARC
               network: "44.34.129.176/28"
-              gateway_ip: "44.34.129.176/28"
+              gateway_ip: "44.34.129.177/28"
               bridge_ports:
                 - "ether7"
                 - "ether8"
