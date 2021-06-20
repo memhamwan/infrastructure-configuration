@@ -1,0 +1,10 @@
+name: hello-world
+on: push
+jobs:
+  my-job:
+    runs-on: ubuntu-latest
+    name: YAML Lint
+    steps:
+      - uses: actions/checkout@v2
+      - run: npm install --global yaml-validator
+      - run: yaml-validator **/*.yml,**/*.yaml
