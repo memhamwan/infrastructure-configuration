@@ -1,4 +1,0 @@
----
-- hosts: media-proxy
-  roles:
-    - media-proxy

@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: dashy-config-v4 # To make sure deployments happen properly, be sure to bump the version slug at the end; there's a corresponding change needed in dashy.yaml too
+  name: dashy-config-v4  # To make sure deployments happen properly, be sure to bump the version slug at the end here AND in the other file
 data:
   # file-like keys
   conf.yml: |
@@ -61,5 +61,3 @@ data:
         description: 'Management portal for PowerDNS, which we use for our authoritative DNS'
         icon: favicon
         url: https://dns.leb.memhamwan.net/
-        
-      

@@ -8,10 +8,10 @@ metadata:
 spec:
   loadBalancerIP: 44.34.128.190
   ports:
-  - name: udp-53
-    port: 53
-    protocol: UDP
-    targetPort: 53
+    - name: udp-53
+      port: 53
+      protocol: UDP
+      targetPort: 53
   selector:
     app.kubernetes.io/instance: fleet-apps-fleet-recursive-dns
     app.kubernetes.io/name: coredns

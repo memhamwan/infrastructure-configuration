@@ -1,0 +1,17 @@
+---
+- name: Dump config
+  community.network.routeros_command:
+    commands: /export hide-sensitive
+  register: export
+- name: Output to file
+  copy:
+    content: "{{ export.stdout[0] }}"
+    dest: ../../routeros-config-audit/{{ inventory_hostname }}.rsc
+    mode: '0755'
+  delegate_to: localhost
+- name: Remove date from export
+  ansible.builtin.replace:
+    path: ../../routeros-config-audit/{{ inventory_hostname }}.rsc
+    regexp: '^# .* by (RouterOS .*)$'
+    replace: '# \1'
+  delegate_to: localhost

@@ -1,0 +1,17 @@
+name: linters
+on: push
+jobs:
+  my-job:
+    runs-on: ubuntu-latest
+    name: YAML Lint
+    steps:
+      - uses: actions/checkout@v2
+      - run: pip3 install -r requirements.txt
+      - run: yamllint **/*.yaml
+  ansible-lint: 
+    runs-on: ubuntu-latest
+    name: Ansible Lint
+    steps:
+      - uses: actions/checkout@v2
+      - run: pip3 install -r requirements.txt
+      - run: cd ansible && ansible-lint

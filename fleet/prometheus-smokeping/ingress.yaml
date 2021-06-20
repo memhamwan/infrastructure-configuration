@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: prometheus-smokeping
+  namespace: default
+spec:
+  rules:
+    - host: smokeping-exporter.k8s.leb.memhamwan.net
+      http:
+        paths:
+          - backend:
+              service:
+                name: prometheus-smokeping
+                port:
+                  number: 9374
+            path: /
+            pathType: ImplementationSpecific
