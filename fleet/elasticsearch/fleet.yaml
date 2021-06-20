@@ -16,6 +16,5 @@ helm:
       limits:
         cpu: "1000m"
         memory: "512M"
-
     persistence:
       enabled: false

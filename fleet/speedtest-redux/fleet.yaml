@@ -3,9 +3,9 @@ helm:
   chart: librespeed
   version: 3.2.0
   values:
-    ingress: 
+    ingress:
       enabled: true
-      hosts: 
+      hosts:
         - "speedtest.k8s.leb.memhamwan.net"
       annotations:
         kubernetes.io/tls-acme: "true"

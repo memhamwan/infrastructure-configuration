@@ -1,14 +1,14 @@
 ---
 - name: Get DNS configuration
   community.network.routeros_command:
-    commands: 
+    commands:
       - "/ip dns print"
   register: dns_servers
 - name: Set DNS to the desired servers
   community.network.routeros_command:
-    commands: 
-      - "/ip dns set servers={{dns_server}} allow-remote-requests=no"
-  changed_when: True
+    commands:
+      - "/ip dns set servers={{ dns_server }} allow-remote-requests=no"
+  changed_when: true
   when: "dns_servers.stdout_lines[0][0].find(dns_server) == -1"
 - name: Check if routeros packages need to be updated
   community.network.routeros_command:
@@ -19,13 +19,13 @@
     commands: /system package update install
   when: "package_needs_update.stdout_lines[0][-1].find('already up to date') == -1"
   register: package_update
-  changed_when: True
-- name: Wait for server to restart
-  local_action:
-    module: wait_for
-      host={{ inventory_hostname }}
-      port=22
-      delay=20
+  changed_when: true
+- name: Wait for server to restart  # noqa no-handler
+  wait_for:
+    host: "{{ inventory_hostname }}"
+    port: 22
+    delay: 20
+  delegate_to: localhost
   when: package_update.changed
 - name: Check if firmware needs upgading
   community.network.routeros_command:
@@ -37,11 +37,11 @@
       - ":execute script=\"/system routerboard upgrade\""
       - ":execute script=\"/system reboot\""
   when: firmware_version.stdout_lines[0][-1].split(' ')[-1] != firmware_version.stdout_lines[0][-2].split(' ')[-1]
-  changed_when: True
+  changed_when: true
 - name: Wait for server to restart
-  local_action:
-    module: wait_for
-      host={{ inventory_hostname }}
-      port=22
-      delay=20
+  wait_for:
+    host: "{{ inventory_hostname }}"
+    port: 22
+    delay: 20
+  delegate_to: localhost
   when: firmware_version.stdout_lines[0][-1].split(' ')[-1] != firmware_version.stdout_lines[0][-2].split(' ')[-1]

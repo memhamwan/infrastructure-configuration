@@ -1,0 +1,6 @@
+---
+- name: Setup nv2
+  community.network.routeros_command:
+    commands:
+      - "/interface wireless set band=5ghz-onlyac channel-width=20mhz frequency={{ frequency }} scan-list={{ frequency }} tdma-period-size=4 \
+      nv2-cell-radius={{ nv2_cell_radius }} nv2-preshared-key={{ nv2_preshared_key }} radio-name={{ inventory_hostname }} antenna-gain=0 0"

@@ -9,9 +9,9 @@ helm:
       baseURL: "https://prometheus.k8s.leb.memhamwan.net"
       persistentVolume:
         enabled: false
-      ingress: 
+      ingress:
         enabled: true
-        hosts: 
+        hosts:
           - "prometheus.k8s.leb.memhamwan.net"
         annotations:
           kubernetes.io/tls-acme: "true"
@@ -21,15 +21,15 @@ helm:
           - secretName: prometheus-tls
             hosts:
               - prometheus.k8s.leb.memhamwan.net
-    alertmanager: 
+    alertmanager:
       enabled: true
       baseURL: "https://alertmanager.k8s.leb.memhamwan.net"
       configFromSecret: "alertmanager-config-secret"
       persistentVolume:
         enabled: false
-      ingress: 
+      ingress:
         enabled: true
-        hosts: 
+        hosts:
           - "alertmanager.k8s.leb.memhamwan.net"
         annotations:
           kubernetes.io/tls-acme: "true"
@@ -39,13 +39,13 @@ helm:
           - secretName: alertmanager-tls
             hosts:
               - alertmanager.k8s.leb.memhamwan.net
-    grafana: 
+    grafana:
       enabled: true
       adminUser: "hamwan"
       adminPassword: "hamwan"
-      ingress: 
+      ingress:
         enabled: true
-        hosts: 
+        hosts:
           - "grafana.k8s.leb.memhamwan.net"
         annotations:
           kubernetes.io/tls-acme: "true"
@@ -56,10 +56,6 @@ helm:
             hosts:
               - grafana.k8s.leb.memhamwan.net
     alertmanagerFiles:
-      # alertmanager.yml:
-      # For this file's configuration, see the alertmanager-config-secret which is deployed out of the `hamwan-k8s-secrets` repo
-    ## Prometheus server ConfigMap entries
-    ##
     serverFiles:
 
       ## Alerts configuration
@@ -136,14 +132,14 @@ helm:
           - name: Smokeping
             interval: 30s
             rules:
-            - record: instance:smokeping_probe_success:ratio1m
-              expr: increase(smokeping_response_duration_seconds_count[1m]) / increase(smokeping_requests_total[1m])
-            - record: instance:smokeping_response_duration_seconds:q50
-              expr: histogram_quantile(0.50, rate(smokeping_response_duration_seconds_bucket[1m]))
-            - record: instance:smokeping_response_duration_seconds:q90
-              expr: histogram_quantile(0.90, rate(smokeping_response_duration_seconds_bucket[1m]))
-            - record: instance:smokeping_response_duration_seconds:q99
-              expr: histogram_quantile(0.99, rate(smokeping_response_duration_seconds_bucket[1m]))
+              - record: instance:smokeping_probe_success:ratio1m
+                expr: increase(smokeping_response_duration_seconds_count[1m]) / increase(smokeping_requests_total[1m])
+              - record: instance:smokeping_response_duration_seconds:q50
+                expr: histogram_quantile(0.50, rate(smokeping_response_duration_seconds_bucket[1m]))
+              - record: instance:smokeping_response_duration_seconds:q90
+                expr: histogram_quantile(0.90, rate(smokeping_response_duration_seconds_bucket[1m]))
+              - record: instance:smokeping_response_duration_seconds:q99
+                expr: histogram_quantile(0.99, rate(smokeping_response_duration_seconds_bucket[1m]))
       ## DEPRECATED DEFAULT VALUE, unless explicitly naming your files, please use recording_rules.yml
       rules: {}
 
@@ -151,7 +147,6 @@ helm:
         rule_files:
           - /etc/config/recording_rules.yml
           - /etc/config/alerting_rules.yml
-        ## Below two files are DEPRECATED will be removed from this default values file
           - /etc/config/rules
           - /etc/config/alerts
 
@@ -159,58 +154,58 @@ helm:
           - job_name: 'adsb'
             static_configs:
               - targets:
-                - adsb.sco.memhamwan.net:9105
+                  - adsb.sco.memhamwan.net:9105
             metrics_path: /metrics
           - job_name: 'smokeping'
             static_configs:
               - targets:
-                - smokeping-exporter.k8s.leb.memhamwan.net
+                  - smokeping-exporter.k8s.leb.memhamwan.net
             metrics_path: /metrics
             scrape_interval: 15s
           - job_name: 'snmp-routers'
             static_configs:
               - targets:
-                - ap.mno.memhamwan.net
-                - azo.leb.memhamwan.net
-                - crw.leb.memhamwan.net
-                - hil.leb.memhamwan.net
-                - hil.mno.memhamwan.net
-                - leb.azo.memhamwan.net
-                - leb.hil.memhamwan.net
-                - leb.mno.memhamwan.net
-                - leb.ret.memhamwan.net
-                - leb.sco.memhamwan.net
-                - mno.hil.memhamwan.net
-                - mno.leb.memhamwan.net
-                - omn1.leb.memhamwan.net
-                - omn2.azo.memhamwan.net
-                - r1.azo.memhamwan.net
-                - r1.hil.memhamwan.net
-                - r1.leb.memhamwan.net
-                - r1.mno.memhamwan.net
-                - r1.sco.memhamwan.net
-                - r2.azo.memhamwan.net
-                - r2.leb.memhamwan.net
-                - r2.mno.memhamwan.net
-                - r3.azo.memhamwan.net
-                - r4.azo.memhamwan.net
-                - ret.leb.memhamwan.net
-                - sco.leb.memhamwan.net
-                - sec1.hil.memhamwan.net
-                - sec1.mno.memhamwan.net
-                - sec1.sco.memhamwan.net
-                - sec2.hil.memhamwan.net
-                - sec2.mno.memhamwan.net
-                - sec2.sco.memhamwan.net
-                - sec3.hil.memhamwan.net
-                - sec3.mno.memhamwan.net
-                - sec3.sco.memhamwan.net
-                - leb.crw.memhamwan.net
-                - r1.crw.memhamwan.net
-                - r2.crw.memhamwan.net
-                - r3.crw.memhamwan.net
-                - omn1.crw.memhamwan.net
-                - omn2.crw.memhamwan.net
+                  - ap.mno.memhamwan.net
+                  - azo.leb.memhamwan.net
+                  - crw.leb.memhamwan.net
+                  - hil.leb.memhamwan.net
+                  - hil.mno.memhamwan.net
+                  - leb.azo.memhamwan.net
+                  - leb.hil.memhamwan.net
+                  - leb.mno.memhamwan.net
+                  - leb.ret.memhamwan.net
+                  - leb.sco.memhamwan.net
+                  - mno.hil.memhamwan.net
+                  - mno.leb.memhamwan.net
+                  - omn1.leb.memhamwan.net
+                  - omn2.azo.memhamwan.net
+                  - r1.azo.memhamwan.net
+                  - r1.hil.memhamwan.net
+                  - r1.leb.memhamwan.net
+                  - r1.mno.memhamwan.net
+                  - r1.sco.memhamwan.net
+                  - r2.azo.memhamwan.net
+                  - r2.leb.memhamwan.net
+                  - r2.mno.memhamwan.net
+                  - r3.azo.memhamwan.net
+                  - r4.azo.memhamwan.net
+                  - ret.leb.memhamwan.net
+                  - sco.leb.memhamwan.net
+                  - sec1.hil.memhamwan.net
+                  - sec1.mno.memhamwan.net
+                  - sec1.sco.memhamwan.net
+                  - sec2.hil.memhamwan.net
+                  - sec2.mno.memhamwan.net
+                  - sec2.sco.memhamwan.net
+                  - sec3.hil.memhamwan.net
+                  - sec3.mno.memhamwan.net
+                  - sec3.sco.memhamwan.net
+                  - leb.crw.memhamwan.net
+                  - r1.crw.memhamwan.net
+                  - r2.crw.memhamwan.net
+                  - r3.crw.memhamwan.net
+                  - omn1.crw.memhamwan.net
+                  - omn2.crw.memhamwan.net
             metrics_path: /snmp
             params:
               module: [mikrotik]
@@ -224,9 +219,9 @@ helm:
           - job_name: 'snmp-apc'
             static_configs:
               - targets:
-                - ups.mno.memhamwan.net
-                - ups.sco.memhamwan.net
-                - ups.azo.memhamwan.net
+                  - ups.mno.memhamwan.net
+                  - ups.sco.memhamwan.net
+                  - ups.azo.memhamwan.net
             metrics_path: /snmp
             params:
               module: [apcups]
@@ -240,7 +235,7 @@ helm:
           - job_name: 'snmp-ifmib'
             static_configs:
               - targets:
-                - pdu.crw.memhamwan.net
+                  - pdu.crw.memhamwan.net
             metrics_path: /snmp
             relabel_configs:
               - source_labels: [__address__]
@@ -252,17 +247,17 @@ helm:
           - job_name: prometheus
             static_configs:
               - targets:
-                - localhost:9090
+                  - localhost:9090
           - job_name: 'blackbox'
             metrics_path: /probe
             params:
               module: [http_2xx]  # Look for a HTTP 200 response.
             static_configs:
               - targets:
-                - http://clients1.google.com/generate_204
-                - http://www.wb4kog.com
-                - http://cam1.azo.memhamwan.net
-                - http://ais.azo.memhamwan.net
+                  - http://clients1.google.com/generate_204
+                  - http://www.wb4kog.com
+                  - http://cam1.azo.memhamwan.net
+                  - http://ais.azo.memhamwan.net
             relabel_configs:
               - source_labels: [__address__]
                 target_label: __param_target
@@ -276,7 +271,7 @@ helm:
               module: [tcp_connect]
             static_configs:
               - targets:
-                - allstar.leb.memhamwan.net:5038
+                  - allstar.leb.memhamwan.net:5038
             relabel_configs:
               - source_labels: [__address__]
                 target_label: __param_target
@@ -290,11 +285,11 @@ helm:
               module: [tcp_connect]
             static_configs:
               - targets:
-                - cam1.azo.memhamwan.net:554
-                - cam1.hil.memhamwan.net:1935
-                - cam1.crw.memhamwan.net:554
-                - cam2.crw.memhamwan.net:554
-                - cam1.sco.memhamwan.net:554
+                  - cam1.azo.memhamwan.net:554
+                  - cam1.hil.memhamwan.net:1935
+                  - cam1.crw.memhamwan.net:554
+                  - cam2.crw.memhamwan.net:554
+                  - cam1.sco.memhamwan.net:554
             relabel_configs:
               - source_labels: [__address__]
                 target_label: __param_target
@@ -304,11 +299,11 @@ helm:
                 replacement: blackbox-exporter.k8s.leb.memhamwan.net  # The blackbox exporter's real hostname:port.
           - job_name: 'node_exporter'
             static_configs:
-            - targets: 
-              - 'ntp.leb.memhamwan.net:9100'
-              - 'stream.sco.memhamwan.net:9100'
-              - 'dns.leb.memhamwan.net:9100'
-              - 'adsb.sco.memhamwan.net:9100'
+              - targets:
+                  - 'ntp.leb.memhamwan.net:9100'
+                  - 'stream.sco.memhamwan.net:9100'
+                  - 'dns.leb.memhamwan.net:9100'
+                  - 'adsb.sco.memhamwan.net:9100'
 
           # A scrape configuration for running Prometheus on a Kubernetes cluster.
           # This uses separate scrape configs for cluster components (i.e. API server, node)

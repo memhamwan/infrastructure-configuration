@@ -1,6 +1,0 @@
----
-- hosts: routeros
-  roles:
-    - role: routeros
-  gather_facts: no
-  serial: 3

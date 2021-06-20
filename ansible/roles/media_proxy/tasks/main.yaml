@@ -1,0 +1,81 @@
+---
+- name: Copy cam downloader script
+  template:
+    src: cam-downloader.sh
+    dest: /opt/cam-downloader.sh
+    owner: root
+    group: root
+    mode: 0755
+  become: true
+- name: Add expires module
+  apache2_module:
+    state: present
+    name: expires
+  become: true
+- name: Add headers module
+  apache2_module:
+    state: present
+    name: headers
+  become: true
+- name: Add cache module
+  apache2_module:
+    state: present
+    name: cache
+  become: true
+- name: Turn on ExpiresActive
+  lineinfile:
+    dest: /etc/apache2/sites-enabled/000-default.conf
+    regexp: '^ExpiresActive'
+    line: ExpiresActive on
+    insertbefore: '^</VirtualHost>'
+  become: true
+- name: Add ExpiresDefault configuration
+  lineinfile:
+    dest: /etc/apache2/sites-enabled/000-default.conf
+    regexp: '^ExpiresDefault'
+    line: ExpiresDefault A60
+    insertbefore: '^</VirtualHost>'
+  become: true
+- name: Add cacheheader
+  lineinfile:
+    dest: /etc/apache2/sites-enabled/000-default.conf
+    regexp: '^CacheHeader'
+    line: CacheHeader on
+    insertbefore: '^</VirtualHost>'
+  become: true
+- name: Add Cache Control header
+  lineinfile:
+    dest: /etc/apache2/sites-enabled/000-default.conf
+    regexp: '^Header merge Cache-Contro'
+    line: Header merge Cache-Control public
+    insertbefore: '^</VirtualHost>'
+  become: true
+- name: Add FileETag Config
+  lineinfile:
+    dest: /etc/apache2/sites-enabled/000-default.conf
+    regexp: '^FileETag'
+    line: FileETag All
+    insertbefore: '^</VirtualHost>'
+  become: true
+- name: Copy index.html file over
+  template:
+    src: index.html
+    dest: /var/www/html/index.html
+    owner: root
+    group: root
+    mode: 0755
+  become: true
+- name: Install the package "apache2"
+  apt:
+    name: apache2
+  become: true
+- name: Setup downloader cron
+  cron:
+    name: "Download Camera Pictures"
+    job: "/opt/cam-downloader.sh &> /var/log/cam-downloader.log"
+  become: true
+- name: Allow Apache to be accessed in UFW
+  ufw:
+    rule: allow
+    name: Apache Full
+  become: true

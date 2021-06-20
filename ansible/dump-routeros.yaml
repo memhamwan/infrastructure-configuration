@@ -1,0 +1,7 @@
+---
+- hosts: routeros
+  roles:
+    - role: routeros_snapshot
+  gather_facts: false
+  serial: 3
+  strategy: free

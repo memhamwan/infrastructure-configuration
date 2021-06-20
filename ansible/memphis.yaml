@@ -1,0 +1,224 @@
+memphis:
+  vars:
+    ansible_command_timeout: 45
+    ansible_port: 222
+    dns_server: 44.34.128.190
+    ntp_server: ntp.memhamwan.net
+    users:
+      - name: turnrye
+        key: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDEZXA4eMYwloBRhd7bvYVF8o+xBUHLCldQcSfwunhE+OP8g13a5/DsUL+XkM14MNxLgIZaTKwLQxN8Q0O7WyVy9ZRCS29ybGvjhzMi3YJE\
+        Nd9G/URkQpSA7Jt6l4M+pI5J6Az9Vpw0ASboxpVSaBWOL1u5Kg0+SDGsea1KtoU+gMi91Fy5dNdiuWVpjvtRJAkQ0Kukidzj/HxYZvetelXy6CwDqI2JBYHGWlO8gMfd3x5ObRW4RR7oyWsV3q+f3V\
+        2723GLre5W1owqvEZqhfUK1N3RBBEtAUCRM0WoQW0RNoLEqVAsXfy1rkyRgi0FXm+te9xQ3355+tTdwqioCoAj ryan_turner@Ryans-MacBook-Pro.local"
+      - name: seichold
+        key: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCtNLtPE1FDaMZ3stcq/lMralo4gMvV3WgAFUq71Zc5rKXSfzYVgSYcPUMEVoEN8OPPa3x5pYW6QSTD7jNVIDtPjROfyv1ATZXnTkdMmyF4\
+        BDdHkBPMYjx1By6lsOhRts1QMo6uYsF0xXLciaZIEKQYck0oAKckXYf+slIUQ9MV7GXW6OolCYtdu9x64M8uvqQ+KblbulhGlB64pI1QXizcSr78wo+AhXZN3RiYVn+gawmdnP9AVqIxXEvIVjwDjR\
+        ZY6HQWdeSMijFY+et1E7yWRRPPJGwPSjZ2bK+lUpT/7tN8MKVevRi9XjlvjtkVBr2B/Ldm97MyUzK4L92p5mqN sam@sam-HP-EliteBook-840-G1"
+  children:
+    crw:
+      hosts:
+        leb.crw.memhamwan.net:
+          ether1_ip: 44.34.129.115
+        r1.crw.memhamwan.net:
+          ether1_ip: 44.34.129.116
+          user_subnets:
+            - name: OBARC
+              network: "44.34.129.176/28"
+              gateway_ip: "44.34.129.176/28"
+              bridge_ports:
+                - "ether7"
+                - "ether8"
+        r2.crw.memhamwan.net:
+          ether1_ip: 44.34.129.117
+        r3.crw.memhamwan.net:
+          ether1_ip: 44.34.129.118
+        omn1.crw.memhamwan.net:
+          ether1_ip: 44.34.129.114
+        omn2.crw.memhamwan.net:
+          ether1_ip: 44.34.129.119
+      vars:
+        vrrp_ip: 44.34.129.113
+    azo:
+      hosts:
+        leb.azo.memhamwan.net:
+        r1.azo.memhamwan.net:
+        r2.azo.memhamwan.net:
+        r3.azo.memhamwan.net:
+        omn2.azo.memhamwan.net:
+        r4.azo.memhamwan.net:
+      vars:
+        SITE_NET: 44.34.129.64/28
+        vrrp_ip: 44.34.129.65/32
+    ret:
+      hosts:
+        leb.ret.memhamwan.net:
+          ether1_ip: 44.34.129.161
+          wlan1_ip: 44.34.131.146
+        r1.ret.memhamwan.net:
+          ether1_ip: 44.34.129.162
+      vars:
+        SITE_NET: 44.34.129.161/28
+    leb:
+      hosts:
+        crw.leb.memhamwan.net:
+          ether1_ip: 44.34.128.168
+          wlan1_ip: 44.34.131.145
+        omn1.leb.memhamwan.net:
+          ether1_ip: 44.34.128.183
+        azo.leb.memhamwan.net:
+          wlan1_ip: 44.34.131.142
+        mno.leb.memhamwan.net:
+          ether1_ip: 44.34.128.182
+          wlan1_ip: 44.34.131.141
+        hil.leb.memhamwan.net:
+        sco.leb.memhamwan.net:
+        r1.leb.memhamwan.net:
+          ether1_ip: 44.34.128.161
+        r2.leb.memhamwan.net:
+          ether1_ip: 44.34.128.162
+        ret.leb.memhamwan.net:
+          ether1_ip: 44.34.128.176
+          wlan1_ip: 44.34.131.147
+        k8s-1.leb.memhamwan.net:
+        k8s-2.leb.memhamwan.net:
+        k8s-3.leb.memhamwan.net:
+        dns.leb.memhamwan.net:
+        ntp.leb.memhamwan.net:
+      vars:
+        SITE_NET: 44.34.128.160/27
+        vrrp_ip: 44.34.128.174/32
+    hil:
+      hosts:
+        leb.hil.memhamwan.net:
+        mno.hil.memhamwan.net:
+          ether1_ip: 44.34.128.110/28
+          wlan_ip: 44.34.131.139/32
+        r1.hil.memhamwan.net:
+        sec1.hil.memhamwan.net:
+        sec2.hil.memhamwan.net:
+        sec3.hil.memhamwan.net:
+      vars:
+        SITE_NET: 44.34.128.96/28
+        vrrp_ip: 44.34.128.102/32
+    sco:
+      hosts:
+        r1.sco.memhamwan.net:
+        sec1.sco.memhamwan.net:
+        sec2.sco.memhamwan.net:
+        sec3.sco.memhamwan.net:
+        leb.sco.memhamwan.net:
+        wifi.sco.memhamwan.net:
+      vars:
+        SITE_NET: 44.34.128.32/28
+        vrrp_ip: 44.34.128.39/32
+    mno:
+      hosts:
+        ap.mno.memhamwan.net:
+        hil.mno.memhamwan.net:
+        leb.mno.memhamwan.net:
+        r1.mno.memhamwan.net:
+        r2.mno.memhamwan.net:
+        sec1.mno.memhamwan.net:
+        sec2.mno.memhamwan.net:
+        sec3.mno.memhamwan.net:
+    routeros_ptp:
+      hosts:
+        crw.leb.memhamwan.net:
+          frequency: 5785
+          nv2_cell_radius: 100
+        leb.crw.memhamwan.net:
+          frequency: 5785
+          nv2_cell_radius: 100
+
+        azo.leb.memhamwan.net:
+          frequency: 5825
+          nv2_cell_radius: 10
+        leb.azo.memhamwan.net:
+          frequency: 5825
+          nv2_cell_radius: 10
+
+        hil.leb.memhamwan.net:
+          frequency: 5745
+          nv2_cell_radius: 20
+        leb.hil.memhamwan.net:
+          frequency: 5745
+          nv2_cell_radius: 20
+
+        ret.leb.memhamwan.net:
+          frequency: 5805
+          nv2_cell_radius: 10
+        leb.ret.memhamwan.net:
+          frequency: 5805
+          nv2_cell_radius: 10
+
+        mno.leb.memhamwan.net:
+          frequency: 5765
+          nv2_cell_radius: 50
+        leb.mno.memhamwan.net:
+          frequency: 5765
+          nv2_cell_radius: 50
+
+    routeros:
+      vars:
+        ansible_connection: ansible.netcommon.network_cli
+        ansible_network_os: community.network.routeros
+        ansible_become: true
+        ansible_become_method: enable
+      hosts:
+        # ap.mno.memhamwan.net: # this is currently unreachable
+        # hil.mno.memhamwan.net: # this is currently unreachable
+        # leb.mno.memhamwan.net: # this is currently unreachable
+        # r1.mno.memhamwan.net: # this is currently unreachable
+        # r2.azo.memhamwan.net: # this is missing a DNS entry
+        # r2.mno.memhamwan.net: # this is currently unreachable
+        # sec1.mno.memhamwan.net: # this is currently unreachable
+        # sec2.mno.memhamwan.net: # this is currently unreachable
+        # sec3.mno.memhamwan.net: # this is currently unreachable
+        azo.leb.memhamwan.net:
+        crw.leb.memhamwan.net:
+        hil.leb.memhamwan.net:
+        leb.azo.memhamwan.net:
+        leb.hil.memhamwan.net:
+        leb.sco.memhamwan.net:
+        mno.hil.memhamwan.net:
+        mno.leb.memhamwan.net:
+        omn1.leb.memhamwan.net:
+        omn2.azo.memhamwan.net:
+        r1.azo.memhamwan.net:
+        r1.hil.memhamwan.net:
+        r1.leb.memhamwan.net:
+        r1.sco.memhamwan.net:
+        r2.azo.memhamwan.net:
+        r2.leb.memhamwan.net:
+        r3.azo.memhamwan.net:
+        r4.azo.memhamwan.net:
+        ret.leb.memhamwan.net:
+        sco.leb.memhamwan.net:
+        sec1.hil.memhamwan.net:
+        sec1.sco.memhamwan.net:
+        sec2.hil.memhamwan.net:
+        # sec2.sco.memhamwan.net: # this is currently unreachable
+        sec3.hil.memhamwan.net:
+        sec3.sco.memhamwan.net:
+        wifi.sco.memhamwan.net:
+        leb.crw.memhamwan.net:
+        r1.crw.memhamwan.net:
+        r2.crw.memhamwan.net:
+        r3.crw.memhamwan.net:
+        omn1.crw.memhamwan.net:
+        omn2.crw.memhamwan.net:
+        leb.ret.memhamwan.net:
+    servers:
+      hosts:
+        k8s-1.leb.memhamwan.net:
+        k8s-2.leb.memhamwan.net:
+        k8s-3.leb.memhamwan.net:
+        adsb.sco.memhamwan.net:
+        stream.sco.memhamwan.net:
+        dns.leb.memhamwan.net:
+        # ntp.leb.memhamwan.net: # This is commented out currently because the startup script is customized to add the ntp collector
+    ntp:
+      hosts:
+        ntp.leb.memhamwan.net:
+    media-proxy:
+      hosts:
+        media-proxy.leb.memhamwan.net:

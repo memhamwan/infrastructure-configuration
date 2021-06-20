@@ -1,7 +1,7 @@
 ---
 - name: Harden
   community.network.routeros_command:
-    commands: 
+    commands:
       - /ip service set telnet disabled=yes
       - /ip service set ftp disabled=yes
       - /ip service set www disabled=yes
@@ -17,16 +17,16 @@
 - name: Setup hamwan user, remove default user
   community.network.routeros_command:
     commands:
-      - "/user add name=hamwan group=full password={{HAMWAN_SSH_SECRET}}"
+      - "/user add name=hamwan group=full password={{ HAMWAN_SSH_SECRET }}"
       - "/user remove [find name=admin]"
 - name: Setup romon
   community.network.routeros_command:
     commands:
-      - "/tool romon set enabled=yes secrets={{ROMON_SECRET}}"
+      - "/tool romon set enabled=yes secrets={{ ROMON_SECRET }}"
 - name: Setup system identity
   community.network.routeros_command:
     commands:
-      - "/system identity set name={{inventory_hostname}}"
+      - "/system identity set name={{ inventory_hostname }}"
 - name: Enable SNMP
   community.network.routeros_command:
     commands:
@@ -36,7 +36,7 @@
   community.network.routeros_command:
     commands:
       - "/system clock set time-zone-autodetect=no time-zone-name=America/Chicago"
-      - "/system ntp client set enabled=yes server-dns-names={{ntp_server}}"
+      - "/system ntp client set enabled=yes server-dns-names={{ ntp_server }}"
 - name: Get the SSH port
   community.network.routeros_command:
     commands:
@@ -47,4 +47,4 @@
     commands:
       - "/ip service set ssh port=222"
   when: ssh_service.stdout_lines[0][0] is not regex("(^|;)port=222(;|$)")
-  changed_when: True
+  changed_when: true

@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: prometheus-smokeping
+  namespace: default
+  labels:
+    app.kubernetes.io/name: prometheus-smokeping
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: prometheus-smokeping
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: prometheus-smokeping
+    spec:
+      containers:
+        - name: prometheus-smokeping
+          image: quay.io/superq/smokeping-prober-linux-amd64:latest
+          args:
+            - r1.hil.memhamwan.net
+            - r1.azo.memhamwan.net
+            - r1.sco.memhamwan.net
+            - r1.ret.memhamwan.net
+            - r1.mno.memhamwan.net
+            - r1.crw.memhamwan.net
