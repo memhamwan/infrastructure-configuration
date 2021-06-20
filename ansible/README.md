@@ -14,7 +14,7 @@
 This will update routeros and then the routerboard firmware for every routeros device. "Changed" status is accurate -- devices that just show "OK" were already up-to-date.
 
 ```bash
-ansible-playbook --vault-password-file .vault-password -i memphis.yaml configure-routeros.yaml --tags update
+ansible-playbook --vault-password-file .vault-password -i memphis.yaml upgrade-routeros.yaml --tags update,add-users
 ```
 
 ### Base Linux Setup

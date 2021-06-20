@@ -1,0 +1,9 @@
+---
+- name: "Add user {{ item.name }}"
+  community.network.routeros_command:
+    commands:
+      - "/file set {{ item.name }} contents='{{ item.key }}'"
+      - "/user add name={{ item.name }} group=full"
+      - "/user ssh-keys import public-key-file={{ item.name }}.keys user={{ item.name }}"
+  changed_when: true
+  when: item.name not in existing_users

@@ -23,7 +23,7 @@
 - name: Wait for server to restart  # noqa no-handler
   wait_for:
     host: "{{ inventory_hostname }}"
-    port: 22
+    port: "{{ ssh_port }}"
     delay: 20
   delegate_to: localhost
   when: package_update.changed
@@ -38,10 +38,12 @@
       - ":execute script=\"/system reboot\""
   when: firmware_version.stdout_lines[0][-1].split(' ')[-1] != firmware_version.stdout_lines[0][-2].split(' ')[-1]
   changed_when: true
+  async: 120
+  poll: 5
 - name: Wait for server to restart
   wait_for:
     host: "{{ inventory_hostname }}"
-    port: 22
+    port: "{{ ssh_port }}"
     delay: 20
   delegate_to: localhost
   when: firmware_version.stdout_lines[0][-1].split(' ')[-1] != firmware_version.stdout_lines[0][-2].split(' ')[-1]

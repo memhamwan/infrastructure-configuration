@@ -42,9 +42,9 @@
     commands:
       - ":put [/ip service get [find name=ssh]]"
   register: ssh_service
-- name: Move SSH to port 222
+- name: "Move SSH to port {{ ssh_port }}"
   community.network.routeros_command:
     commands:
-      - "/ip service set ssh port=222"
+      - "/ip service set ssh port={{ ssh_port }}"
   when: ssh_service.stdout_lines[0][0] is not regex("(^|;)port=222(;|$)")
   changed_when: true
