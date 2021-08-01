@@ -76,11 +76,11 @@ helm:
             rules:
               - alert: InstanceDown
                 expr: up == 0
-                for: 5m
+                for: 10m
                 labels:
                   severity: page
                 annotations:
-                  description: '{{ $labels.instance }} of job {{ $labels.job }} has been down for more than 5 minutes.'
+                  description: '{{ $labels.instance }} of job {{ $labels.job }} has been down for more than 10 minutes.'
                   summary: 'Instance {{ $labels.instance }} down'
               - alert: RpiHighCPUTemp
                 expr: rpi_temperature > 80
