@@ -13,10 +13,8 @@ spec:
       http:
         paths:
           - backend:
-              service:
-                name: dashy
-                port:
-                  number: 80
+              serviceName: dashy
+              servicePort: 80
             path: /
             pathType: ImplementationSpecific
   tls:

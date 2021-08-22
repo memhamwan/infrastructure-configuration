@@ -9,9 +9,7 @@ spec:
       http:
         paths:
           - backend:
-              service:
-                name: prometheus-smokeping
-                port:
-                  number: 9374
+              serviceName: prometheus-smokeping
+              servicePort: 9374
             path: /
             pathType: ImplementationSpecific
